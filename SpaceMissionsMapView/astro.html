@@ -27,11 +27,6 @@
         <td id="main-content">
             <h1>Astronauts Map View</h1>
             
-           <!-- <div ex:role="coder" id="wealth-coder"
-                ex:coderClass="SizeGradient" 
-                ex:gradientPoints="0, 15; 200, 70">
-            </div>-->
-        
             <div ex:role="viewPanel">
                 <div ex:role="view"
                     ex:viewClass="Map"
@@ -39,8 +34,7 @@
                     ex:latlng=".latLong"
                     ex:bubbleWidth="200"
                     ex:bubbleHeight="200"
-                    ex:mapHeight="500"
-                    
+                    ex:mapHeight="500"  
                     >
                     <div class="map-lens" ex:role="lens" style="display: none;">
                         <div><b ex:content=".label"></b>
@@ -48,7 +42,7 @@
                             <div ex:if-exists=".spaceMissionLabel">Space Mission(s): <span ex:content=".spaceMissionLabel"></span></div>
                             <div ex:if-exists=".spaceAgencyLabel">Space Agency(s): <span ex:content=".spaceAgencyLabel"></span></div>
                             <div ex:if-exists=".launchSiteName">Launch Place(s): <span ex:content=".launchSiteName"></span></div>
-                            <div ex:if-exists=".astro">Link(s): <span ex:content=".astro"></span></div>
+                            <div ex:if-exists=".astro">Link(s): <a ex:href-content=".astro" ex:content=".label" target="_blank"></a></span></div>
                         </div>
                     </div>
                 </div>
@@ -64,7 +58,6 @@
             <hr/>
             <div ex:role="facet" ex:expression=".birthPlaceLabel" ex:facetLabel="Birth Place" ex:height="15em"></div>
             <div ex:role="facet" ex:expression=".spaceMissionLabel" ex:facetLabel="Space Mission" ex:height="20em"></div>
-        
         </td>
     </tr></table>
     <div>Link to<a href="index.html" >Space Missions Launch place Map View</a></div>
