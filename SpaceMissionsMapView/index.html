@@ -25,14 +25,7 @@
 
     <table id="frame"><tr>
         <td id="main-content">
-            <h1>Space Missions Map View</h1>
-            
-            <!--Not a problem, right now
-            <div ex:role="coder" id="wealth-coder"
-                ex:coderClass="SizeGradient" 
-                ex:gradientPoints="0, 15; 200, 70">
-            </div> -->
-
+          <h1>Space Missions Map View</h1>
             <div ex:role="viewPanel">
                 <div ex:role="view"
                     ex:viewClass="Map"
@@ -41,7 +34,6 @@
                     ex:bubbleWidth="200"
                     ex:bubbleHeight="200"
                     ex:mapHeight="500"
-                    
                     >
                     <div class="map-lens" ex:role="lens" style="display: none;">
                         <div><b ex:content=".label"></b>
@@ -49,7 +41,7 @@
                             <div ex:if-exists=".launchPlaceName">Launch Place: <span ex:content=".launchPlaceName"></span></div>
                             <div ex:if-exists=".astroName">Astronaut(s): <span ex:content=".astroName"></span></div>
                             <div ex:if-exists=".birthPlaceName">Birth Place(s): <span ex:content=".birthPlaceName"></span></div>
-                            <div ex:if-exists=".spaceMission">Link(s): <span ex:content=".spaceMission"></span></div>
+                            <div ex:if-exists=".spaceMission">Link(s): <a ex:href-content=".spaceMission" ex:content=".label" target="_blank"></a></div>
                         </div>
                     </div>
                 </div>
@@ -65,12 +57,6 @@
             <hr/>
             <div ex:role="facet" ex:expression=".spaceAgencyName" ex:facetLabel="Space Agency" ex:height="15em"></div>
             <div ex:role="facet" ex:expression=".launchPlaceName" ex:facetLabel="Launch Place" ex:height="20em"></div>
-        
-        
-            <!--<div style="text-align: center; margin: 2em;">
-                <div ex:role="logo" ex:color="Azure"></div>
-                <a href="billionaires.js" target="_blank">get data file</a>
-            </div>-->
         </td>
     </tr></table>
     <div>Link to<a href="astro.html" >Astronaut's Birthplace Map View</a></div>
