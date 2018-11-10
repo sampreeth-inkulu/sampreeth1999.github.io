@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>SIMILE Widgets | Exhibit | Examples | Billionaires</title>
+    <link rel='stylesheet' href='http://www.simile-widgets.org/styles/common.css' type='text/css' />
+    
+    <link href='http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query=PREFIX+dbo%3A<http%3A%2F%2Fdbpedia.org%2Fontology%2F>%0D%0APREFIX+dbr%3A<http%3A%2F%2Fdbpedia.org%2Fresource%2F>%0D%0APREFIX+dbp%3A<http%3A%2F%2Fdbpedia.org%2Fproperty%2F>%0D%0APREFIX+geo%3A+<http%3A%2F%2Fwww.w3.org%2F2003%2F01%2Fgeo%2Fwgs84_pos%23>%0D%0A%0D%0ASELECT+DISTINCT+%3Flabel+%3FspaceMission%0D%0A%28SAMPLE%28%3FspaceAgencyName%29+as+%3FspaceAgencyName%29%0D%0A%28SAMPLE%28%3FlaunchPlaceName%29+as+%3FlaunchPlaceName%29%0D%0A%3FlatLong+%3FastroName%0D%0A%28SAMPLE%28%3FbirthPlaceName%29+as+%3FbirthPlaceName%29%0D%0A%0D%0AWHERE+%7B%0D%0A++%7B%0D%0A++++SELECT+%3FspaceMission+%28SAMPLE%28%3FspaceAgency%29+as+%3FspaceAgency%29+%28SAMPLE%28%3FlaunchPlace%29+as+%3FlaunchPlace%29+%3Fastro+%3FbirthPlace%0D%0A++++WHERE+%7B%0D%0A++++++%3FspaceMission+dbp%3Aoperator+%3FspaceAgency+.%0D%0A++++++%3FspaceMission+dbp%3AlaunchSite+%3FlaunchPlace+.%0D%0A++++++OPTIONAL+%7B%0D%0A++++++++%3FspaceMission+dbp%3AcrewMembers+%3Fastro+.%0D%0A++++++++%3Fastro+dbo%3AbirthPlace+%3FbirthPlace+.%0D%0A++++++%7D%0D%0A++++%7D%0D%0A++%7D%0D%0A++%3FspaceMission+rdfs%3Alabel+%3Flabel+.%0D%0A++%3FspaceAgency+rdfs%3Alabel+%3FspaceAgencyName+.%0D%0A++%3FlaunchPlace+rdfs%3Alabel+%3FlaunchPlaceName+.%0D%0A++%3FlaunchPlace+geo%3Alat+%3Flatitude+%3B%0D%0A+++++++++++++++geo%3Along+%3Flongitude+.%0D%0A++OPTIONAL+%7B%0D%0A++++++%3Fastro+rdfs%3Alabel+%3FastroName+.%0D%0A++++++%3FbirthPlace+rdfs%3Alabel+%3FbirthPlaceName+.%0D%0A++++++FILTER+%28lang%28%3FastroName%29%3D"en"%29+.%0D%0A++++++FILTER+%28lang%28%3FbirthPlaceName%29%3D"en"%29+.%0D%0A++%7D%0D%0A%0D%0A++FILTER+%28lang%28%3Flabel%29%3D"en"%29+.%0D%0A++FILTER+%28lang%28%3FspaceAgencyName%29%3D"en"%29+.%0D%0A++FILTER+%28lang%28%3FlaunchPlaceName+%29%3D"en"%29+.%0D%0A++BIND+%28+CONCAT%28%3Flatitude%2C"%2C"%2C%3Flongitude%29+as+%3FlatLong%29+.%0D%0A%7D%0D%0A&format=text%2Fcsv&CXML_redir_for_subjs=121&CXML_redir_for_hrefs=&timeout=30000&debug=on&run=+Run+Query+' type="text/csv" rel="exhibit/data" />
+
+    <link href="wikiResults.csv" type="text/csv" rel="exhibit/data" />
+    
+    <!-- Replace the URL here with http://api.simile-widgets.org/exhibit/2.2.0/exhibit-api.js -->
+    <script src="http://trunk.simile-widgets.org/exhibit/api/exhibit-api.js"></script>
+    
+    <!-- Replace the URL here with http://api.simile-widgets.org/exhibit/2.2.0/extensions/map/map-extension.js -->
+    <script src="http://trunk.simile-widgets.org/exhibit/api/extensions/map/map-extension.js?gmapkey=ABQIAAAA1UnPwjMDoCqzquFyFGskRhTnUm2bUbMDc0XltFmwDCZsW7ZtPRR-St6z4YHRxTFUUhror_AyBYxBaw"></script>
+    
+    <link rel='stylesheet' href='styles.css' type='text/css' />
+  </head>
+  <body>
+    <ul id="path">
+      <li><a href="/">SIMILE Widgets</a></li>
+      <li><a href="/exhibit/">Exhibit</a></li>
+      <li><span>Space Missions</span></li>
+    </ul>
+
+    <table id="frame"><tr>
+        <td id="main-content">
+            <h1>Space Missions Map View</h1>
+            
+            <!--Not a problem, right now
+            <div ex:role="coder" id="wealth-coder"
+                ex:coderClass="SizeGradient" 
+                ex:gradientPoints="0, 15; 200, 70">
+            </div> -->
+
+            <div ex:role="viewPanel">
+                <div ex:role="view"
+                    ex:viewClass="Map"
+                    ex:label="Map View"
+                    ex:latlng=".latLong"
+                    ex:bubbleWidth="200"
+                    ex:bubbleHeight="200"
+                    ex:mapHeight="500"
+                    
+                    >
+                    <div class="map-lens" ex:role="lens" style="display: none;">
+                        <div><b ex:content=".label"></b>
+                            <div ex:if-exists=".spaceAgencyName">Space Agency: <span ex:content=".spaceAgencyName"></span></div>
+                            <div ex:if-exists=".launchPlaceName">Launch Place: <span ex:content=".launchPlaceName"></span></div>
+                            <div ex:if-exists=".astroName">Astronaut(s): <span ex:content=".astroName"></span></div>
+                            <div ex:if-exists=".birthPlaceName">Birth Place(s): <span ex:content=".birthPlaceName"></span></div>
+                            <div ex:if-exists=".spaceMission">Link(s): <span ex:content=".spaceMission"></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div ex:role="view"
+                    ex:viewClass="Tabular"
+                    ex:label="Tabular Form"
+                    ex:columns=".label, .spaceAgencyName, .launchPlaceName, .astroName, .birthPlaceName, .spaceMission"
+                    ex:columnLabels="Space Mission, Space Agency, Launch Place, Astronaut(s), Birth Place, Link(s)"
+                ></div>
+        </td>
+        <td id="sidebar">
+            <div ex:role="facet" ex:facetClass="TextSearch" facetLabel="Search"></div>
+            <hr/>
+            <div ex:role="facet" ex:expression=".spaceAgencyName" ex:facetLabel="Space Agency" ex:height="15em"></div>
+            <div ex:role="facet" ex:expression=".launchPlaceName" ex:facetLabel="Launch Place" ex:height="20em"></div>
+        
+        
+            <!--<div style="text-align: center; margin: 2em;">
+                <div ex:role="logo" ex:color="Azure"></div>
+                <a href="billionaires.js" target="_blank">get data file</a>
+            </div>-->
+        </td>
+    </tr></table>
+    <!--<div>Link to<a href="AstronautsMap.html" target="_blank">Astronaut's Birthplace Map view</a></div>-->
+    <div>Thanks to <a href="http://simile-widgets.org/exhibit/">SIMILE Widgets Exhibit</a></div>
+  </body>
+</html>
