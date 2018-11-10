@@ -1,0 +1,66 @@
+# Dbpedia Query
+PREFIX dbo:<http://dbpedia.org/ontology/>
+PREFIX dbr:<http://dbpedia.org/resource/>
+PREFIX dbp:<http://dbpedia.org/property/>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+
+SELECT DISTINCT ?label ?spaceMission
+(SAMPLE(?spaceAgencyName) as ?spaceAgencyName)
+(SAMPLE(?launchPlaceName) as ?launchPlaceName)
+?latLong ?astroName
+(SAMPLE(?birthPlaceName) as ?birthPlaceName)
+
+WHERE {
+  {
+    SELECT ?spaceMission (SAMPLE(?spaceAgency) as ?spaceAgency) (SAMPLE(?launchPlace) as ?launchPlace) ?astro ?birthPlace
+    WHERE {
+      ?spaceMission dbp:operator ?spaceAgency .
+      ?spaceMission dbp:launchSite ?launchPlace .
+      OPTIONAL {
+        ?spaceMission dbp:crewMembers ?astro .
+        ?astro dbo:birthPlace ?birthPlace .
+      }
+    }
+  }
+  ?spaceMission rdfs:label ?label .
+  ?spaceAgency rdfs:label ?spaceAgencyName .
+  ?launchPlace rdfs:label ?launchPlaceName .
+  ?launchPlace geo:lat ?latitude ;
+               geo:long ?longitude .
+  OPTIONAL {
+      ?astro rdfs:label ?astroName .
+      ?birthPlace rdfs:label ?birthPlaceName .
+      FILTER (lang(?astroName)="en") .
+      FILTER (lang(?birthPlaceName)="en") .
+  }
+
+  FILTER (lang(?label)="en") .
+  FILTER (lang(?spaceAgencyName)="en") .
+  FILTER (lang(?launchPlaceName )="en") .
+  BIND ( CONCAT(?latitude,",",?longitude) as ?latLong) .
+}
+
+#Wikidata Query
+SELECT ?spaceMissionLabel ?spaceMission ?launchsiteLabel ?countryLabel ?spaceAgencyLabel ?astronautLabel ?birthPlaceLabel ?location
+
+WHERE  
+{
+  #?spaceMission wdt:P31 wd:Q5916.
+  ?spaceMission wdt:P619 ?launchTime.
+  ?spaceMission wdt:P1427 ?launchsite.
+  ?launchsite wdt:P17 ?country.
+  ?spaceMission wdt:P137 ?spaceAgency.
+  ?launchsite wdt:P625 ?coordinate.
+  optional{
+    ?spaceMission wdt:P1029 ?astronaut.
+    ?astronaut wdt:P19     ?birthPlace.
+    }
+  BIND(REPLACE( STR(?coordinate),"Point[(]","" ) AS ?coordinate1 ).
+  BIND(REPLACE( STR(?coordinate1)," ","," ) AS ?coordinate2 ).
+  BIND(REPLACE( STR(?coordinate2),"[)]","" ) AS ?location ).
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+	}
+}
+
+ORDER BY ?spaceMissionLabel ?spaceAgencyLabel ?astronautLabel
