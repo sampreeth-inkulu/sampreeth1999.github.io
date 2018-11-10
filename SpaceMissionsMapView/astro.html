@@ -1,12 +1,12 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-    <title>SIMILE Widgets | Exhibit | Examples | Astronauts</title>
+    <title>KMST Project | Astronauts</title>
     <link rel='stylesheet' href='http://www.simile-widgets.org/styles/common.css' type='text/css' />
     
     <link href="http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query=PREFIX+dbo%3A%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2F%3E%0D%0APREFIX+dbr%3A%3Chttp%3A%2F%2Fdbpedia.org%2Fresource%2F%3E%0D%0APREFIX+dbp%3A%3Chttp%3A%2F%2Fdbpedia.org%2Fproperty%2F%3E%0D%0APREFIX+geo%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2003%2F01%2Fgeo%2Fwgs84_pos%23%3E%0D%0A%0D%0ASELECT+DISTINCT+%3Flabel+%3Fastro+%3FspaceMissionLabel%0D%0A%28SAMPLE%28%3FspaceAgencyLabel%29+as+%3FspaceAgencyLabel%29%0D%0A%28SAMPLE%28%3FlaunchSiteName%29+as+%3FlaunchSiteName%29%0D%0A%28SAMPLE%28%3FbirthPlaceLabel%29+as+%3FbirthPlaceLabel%29+%0D%0A%28SAMPLE%28%3FlatLong%29+as+%3FlatLong%29%0D%0A%0D%0AWHERE+%7B%0D%0A++%7B%0D%0A++++SELECT+%3FspaceMission+%28SAMPLE%28%3FspaceAgency%29+as+%3FspaceAgency%29+%28SAMPLE%28%3FlaunchPlace%29+as+%3FlaunchPlace%29+%3Fastro+%28SAMPLE%28%3FbirthPlace%29+as+%3FbirthPlace%29%0D%0A++++WHERE+%7B%0D%0A++++++%3FspaceMission+dbp%3Aoperator+%3FspaceAgency+.%0D%0A++++++%3FspaceMission+dbp%3AlaunchSite+%3FlaunchPlace+.%0D%0A++++++%3FspaceMission+dbp%3AcrewMembers+%3Fastro+.%0D%0A++++++%3Fastro+dbo%3AbirthPlace+%3FbirthPlace+.%0D%0A++++%7D%0D%0A++%7D%0D%0A++%3FspaceMission+rdfs%3Alabel+%3FspaceMissionLabel+.%0D%0A++%3FspaceAgency+rdfs%3Alabel+%3FspaceAgencyLabel+.%0D%0A++%3FlaunchPlace+rdfs%3Alabel+%3FlaunchSiteName+.%0D%0A++%3FbirthPlace+geo%3Alat+%3Flatitude+%3B%0D%0A+++++++++++++++geo%3Along+%3Flongitude+.%0D%0A++++++%3Fastro+rdfs%3Alabel+%3Flabel+.%0D%0A++++++%3FbirthPlace+rdfs%3Alabel+%3FbirthPlaceLabel+.%0D%0A++++++FILTER+%28lang%28%3FspaceMissionLabel%29%3D%22en%22%29+.%0D%0A++++++FILTER+%28lang%28%3FbirthPlaceLabel%29%3D%22en%22%29+.%0D%0A%0D%0A++FILTER+%28lang%28%3Flabel%29%3D%22en%22%29+.%0D%0A++FILTER+%28lang%28%3FspaceAgencyLabel%29%3D%22en%22%29+.%0D%0A++FILTER+%28lang%28%3FlaunchSiteName+%29%3D%22en%22%29+.%0D%0A++BIND+%28+CONCAT%28%3Flatitude%2C%22%2C%22%2C%3Flongitude%29+as+%3FlatLong%29+.%0D%0A%7D%0D%0A&format=text%2Fcsv&CXML_redir_for_subjs=121&CXML_redir_for_hrefs=&timeout=30000&debug=on&run=+Run+Query+" type="text/csv" rel="exhibit/data" />
 
-    <link href="https://raw.githubusercontent.com/sampreeth1999/sampreeth1999.github.io/master/wikiResultsA.csv" type="text/csv" rel="exhibit/data" />
+    <link href="wikiResultsA.csv" type="text/csv" rel="exhibit/data" />
     
     <!-- Replace the URL here with http://api.simile-widgets.org/exhibit/2.2.0/exhibit-api.js -->
     <script src="http://trunk.simile-widgets.org/exhibit/api/exhibit-api.js"></script>
